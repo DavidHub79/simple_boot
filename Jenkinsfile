@@ -39,7 +39,19 @@ pipeline {
                     exclusionPattern: 'src/test/*'
                 )
             }
-        }   
+        } 
+        stage ('Sanity Check'){
+            steps{
+                sh 'echo "--=-- Sanity Check --=--"'
+                sh 'mvn checkstyle:checkstyle pmd:pmd'
+            }
+            post {
+                always {
+                    recordIssues enabledForFailure: true, tools:[checkStyle()]
+                    recordIssues enabledForFailure: true, tool:pmdParser(pattern:'**/target/pmd.xml')
+                }
+            }
+        }
         stage ('Package'){
             steps{
                 sh 'echo "--=-- Package --=--"'
