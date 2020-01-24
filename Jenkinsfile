@@ -3,16 +3,14 @@ pipeline {
     
     tools { 
         maven 'M3'
-        
     }
-    
     stages{
         stage ('Checkout'){
          steps{
              sh 'echo "--=-- Checkout --=--"'
              git url: 'https://github.com/DavidHub79/simple_boot.git'
-         }
-        }
+         	  }
+       	   }
         stage ('compile'){
          steps{
              sh 'echo "--=-- Compile --=--"'
